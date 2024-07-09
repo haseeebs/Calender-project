@@ -1,6 +1,25 @@
+import {
+    startOfMonth,
+    endOfMonth,
+    startOfWeek,
+    endOfWeek,
+    eachDayOfInterval,
+  } from "date-fns";
+
+import { useMemo, useState } from "react";
 import CalanderDay from "./CalenderDay";
 
 const Calender = () => {
+
+    const [selectedMonth, setSelectedMonth] = useState(new Date());
+
+    const calendarDays = useMemo(() => {
+      const firstWeekStart = startOfWeek(startOfMonth(selectedMonth));
+      const lastWeekEnd = endOfWeek(endOfMonth(selectedMonth));
+      return eachDayOfInterval({ start: firstWeekStart, end: lastWeekEnd });
+    }, [selectedMonth]);
+  
+
   return (
     <>
       <div className="calendar">
@@ -20,7 +39,9 @@ const Calender = () => {
         </header>
 
         <div className="days">
-          <CalanderDay />
+          {calendarDays.map( (day, index) => (
+            <CalanderDay key={day.getTime()} day={day} showWeekName={ index < 7 } selectedMonth={ selectedMonth }/>
+          ) )}
         </div>
       </div>
     </>
