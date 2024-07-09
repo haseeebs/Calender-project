@@ -1,4 +1,4 @@
-import { endOfDay, isBefore, isSameMonth } from "date-fns";
+import { endOfDay, isBefore, isSameMonth, isToday } from "date-fns";
 import { cc } from "../utils/cc";
 import { formatDate } from "../utils/formatDate";
 
@@ -14,7 +14,7 @@ const CalendarDay = ({ day, showWeekName, selectedMonth}: CalenderDayProps) => {
       <div className={cc("day", !isSameMonth(day, selectedMonth) && 'non-month-day', isBefore(endOfDay(day), new Date()) && 'old-month-day')}>
         <div className="day-header">
           <div className="week-name"> {showWeekName && formatDate(day, { weekday: "short" })} </div>
-          <div className="day-number">{formatDate(day, { day: 'numeric' })}</div>
+          <div className={cc("day-number", isToday(day) && 'today')}>{formatDate(day, { day: 'numeric' })}</div>
           <button className="add-event-btn">+</button>
         </div>
       </div>
