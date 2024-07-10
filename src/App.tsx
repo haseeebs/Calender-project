@@ -1,12 +1,14 @@
-import Calender from "./components/Calender"
+import Calender from "./components/Calender";
+import { EventProvider } from "./context/Events";
 
 function App() {
-
   return (
     <>
-      <Calender />
+      <EventProvider>
+        <Calender />
+      </EventProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
